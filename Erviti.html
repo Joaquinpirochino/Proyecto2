@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<!-- ESTILOS PARA EL MODAL-->
+<style>
+.modal {
+ display: none; /* oculto hasta abrir */
+ position: fixed;
+ left: 0; top: 0;
+ width: 100%; height: 100%;
+ background-color: rgba(255, 0, 0, 0.5);
+ z-index: 1000;
+}
+.modal-contenido {
+ background: rgb(224, 193, 193);
+ margin: 5% auto;
+ padding: 20px;
+ border-radius: 10px;
+ max-width: 600px;
+ max-height: 80vh;
+ overflow-y: auto;
+}
+.cerrar { float: right; cursor: pointer; font-size: 24px; }
+.correcta { color: green; }
+.incorrecta { color: red; }
+#resultado { margin-top: 1em; } 
+</style>
+</head>
+<body>
+    <!-- SECCIÓN PARA JUGAR TRIVIA -->
+<section id="jugar-trivia">
+<h2>¿Te animas a poner a prueba tus conocimientos?</h2>
+<button id="abrirTrivia">Comenzar Trivia de Erviti</button>
+</section>
+<!-- MODAL -->
+<div id="modalTrivia" class="modal">
+ <div class="modal-contenido">
+ <span class="cerrar">&times;</span>
+ <!-- Aquí irá el formulario y resultados -->
+ <h2>Trivia sobre Joaquin Erviti</h2>
+<form id="formTrivia">
+ <p><strong>1.</strong> ¿Dónde nació Joaquin Erviti?</p>
+ <label><input type="radio" name="p1" value="España"> España</label><br>
+ <label><input type="radio" name="p1" value="Italia"> Italia</label><br>
+ <label><input type="radio" name="p1" value="Francia"> Francia</label><br><br>
+
+ <p><strong>2.</strong> . ¿En qué año nació? </p>
+ <label><input type="radio" name="p2" value="1556"> 1912</label><br>
+ <label><input type="radio" name="p2" value="1656"> 1656</label><br>
+ <label><input type="radio" name="p2" value="1756"> 1756</label><br><br>
+
+ <p><strong>3.</strong> .  ¿A que edad muriò? </p>
+ <label><input type="radio" name="p3" value="87 años"> 87 años</label><br>
+ <label><input type="radio" name="p3" value="78"> 78</label><br>
+ <label><input type="radio" name="p3" value="92"> 92</label><br><br>
+
+ <p><strong>4.</strong> . ¿Cuando es su fiesta litúrgica?  </p>
+ <label><input type="radio" name="p4" value="12 de mayo"> 12 de mayo</label><br>
+ <label><input type="radio" name="p4" value="21 de julio"> 21 de julio</label><br>
+ <label><input type="radio" name="p4" value="9 de mayo"> 9 de mayo</label><br><br>
+ 
+ <p><strong>5.</strong> . ¿Cuando fue su martirio? </p>
+ <label><input type="radio" name="p5" value="14 de octubre"> 14 de octubre</label><br>
+ <label><input type="radio" name="p5" value="18 de octubre"> 18 de octubre</label><br>
+ <label><input type="radio" name="p5" value="20 de octubre"> 20 de octubre</label><br><br>
+ <button type="submit">Enviar respuestas</button>
+</form>
+<div id="resultado"></div> 
+ </div>
+</div> 
+<!-- SCRIPT básico para abrir/cerrar el MODAL-->
+<script>
+const modal = document.getElementById("modalTrivia");
+const btnAbrir = document.getElementById("abrirTrivia");
+const btnCerrar = document.querySelector(".cerrar");
+btnAbrir.onclick = () => { modal.style.display = "block"; };
+btnCerrar.onclick = () => { modal.style.display = "none"; };
+window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
+document.getElementById("formTrivia").addEventListener("submit", function(e) {
+ e.preventDefault();
+ // Variable para puntaje
+ let puntaje = 0;
+ let salida = "";
+ // Capturamos la respuesta de la PREGUNTA 1
+ let r1 = document.querySelector('input[name="p1"]:checked');
+ // Validamos
+ if (r1) {
+ if (r1.value === "España") {
+ puntaje++;
+ salida += "<p class='correcta'>1. Correcta</p>";
+ } else {
+ salida += "<p class='incorrecta'>1. Incorrecta. Correcta: España</p>";
+ }
+ } else {
+ salida += "<p class='incorrecta'>1. No respondida. Correcta: España</p>";
+ }
+// Capturamos la respuesta de la PREGUNTA 2
+let r2 = document.querySelector('input[name="p2"]:checked');
+ // Validamos
+ if (r2) {
+ if (r2.value === "1912") {
+ puntaje++;
+ salida += "<p class='correcta'>2. Correcta</p>";
+ } else {
+ salida += "<p class='incorrecta'>2. Incorrecta. Correcta: 1912</p>";
+ }
+ } else {
+ salida += "<p class='incorrecta'>2. No respondida. Correcta: 1912</p>";
+ }
+// Capturamos la respuesta de la PREGUNTA 3
+let r3 = document.querySelector('input[name="p3"]:checked');
+ // Validamos
+ if (r3) {
+ if (r3.value === "87 años") {
+ puntaje++;
+ salida += "<p class='correcta'>3. Correcta</p>";
+ } else {
+ salida += "<p class='incorrecta'>3. Incorrecta. Correcta: 87 años</p>";
+ }
+ } else {
+ salida += "<p class='incorrecta'>3. No respondida. Correcta: 87 años</p>";
+ }
+// Capturamos la respuesta de la PREGUNTA 4
+let r4 = document.querySelector('input[name="p4"]:checked');
+ // Validamos
+ if (r4) {
+ if (r4.value === " 9 de mayo") {
+ puntaje++;
+ salida += "<p class='correcta'>4. Correcta</p>";
+ } else {
+ salida += "<p class='incorrecta'>4. Incorrecta. Correcta:  9 de mayo</p>";
+ }
+ } else {
+ salida += "<p class='incorrecta'>4. No respondida. Correcta:  9 de mayo</p>";
+ }
+// Capturamos la respuesta de la PREGUNTA 5
+let r5 = document.querySelector('input[name="p5"]:checked');
+ // Validamos
+ if (r5) {
+ if (r5.value === "14 de octubre"){
+ puntaje++;
+ salida += "<p class='correcta'>5. Correcta</p>";
+ } else {
+ salida += "<p class='incorrecta'>5. Incorrecta. Correcta:14 de octubre</p>";
+ }
+ } else {
+ salida += "<p class='incorrecta'>5. No respondida. Correcta: 14 de octubre</p>";
+ }
+ salida += `<h4>Puntaje final: ${puntaje} de 5</h4>`;
+ if (puntaje === 5) salida += "¡Excelente trabajo!";
+ else if (puntaje >= 3) salida += "Leiste muy bien la pagina, ahora conoces bastante sobre Joaquin Erviti.";
+ else salida += " Puedes repasar la página para aprender más."; 
+ document.getElementById("resultado").innerHTML = salida;
+}); 
+</script> 
+</body>
+</html>
+
+
+
+
+
+
+
+
